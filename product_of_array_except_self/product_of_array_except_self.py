@@ -37,4 +37,53 @@ def productExceptSelf(nums: list[int]) -> list[int]:
     return answer
 
 
-print(productExceptSelf([1,2,3,4]))
+def productExceptSelfAgain(nums:list[int]) -> list[int]:
+    max_len:int = len(nums)
+    long_list:list[int] = nums
+    item_number:int = 0
+    multiply:int = 1
+    returning_array:list[int] = []
+
+    for i in range(1,len(long_list)+1):
+        if (i-1 != item_number):
+            multiply *= long_list[i-1]
+        if (i%max_len == 0):
+            item_number += max_len+1
+            returning_array.append(multiply)
+            long_list.pop()
+            multiply = 1  
+        i=0  
+    return returning_array
+
+
+
+def productExceptSelfAgainAgain(nums:list[int]) -> list[int]:
+    prefix:int = 1
+    postfix:int = 1
+    output_array:list[int] = [1]*(len(nums))
+    output_array[0] = nums[0]
+
+    for i in range(1,len(nums)):
+        output_array[i] = prefix*nums[i-1]
+        prefix *= nums[i-1]
+
+    for j in range(len(nums)-1, -1, -1):
+        output_array[j] = postfix*output_array[j]
+        if j ==0:
+            output_array[j] = postfix
+        postfix *= nums[j]
+
+    return output_array
+
+
+print(productExceptSelfAgainAgain([4,3,2,1,2]))
+# correct answer for [4,3,2,1,2] is [12,16,24,48,24]
+
+
+
+
+
+
+
+# print(productExceptSelf([1,2,3,4]))
+# output array: [24,12,8,6]
