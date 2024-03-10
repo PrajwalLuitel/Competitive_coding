@@ -42,18 +42,18 @@ def longestConsecutive( nums: list[int]) -> int:
     
 
 
-def longestConsecutiveWithoutSorting(nums:list[int]) -> int:
-    set_nums:set[int] = set(nums)
-    longest:int = 0
+def longestConsecutiveWithoutSorting(nums:list[int]) -> int:  # Function to find longest consecutive
+   set_nums:set[int] = set(nums)  # Convert list to set for O(1) lookups
+   longest:int = 0
 
-    for num in set_nums:
-        length:int = 0
-        if num-1 not in set_nums:
-            while num+length in set_nums:
-                length += 1
-            longest = max(longest, length)
+   for num in set_nums:  # Iterate through set elements
+       length:int = 0
+       if num-1 not in set_nums:  # If not a starting number
+           while num+length in set_nums:  # While next number is in set
+               length += 1  # Increment length
+           longest = max(longest, length)  # Update longest
 
-    return longest
+   return longest  # Return longest consecutive sequence
 
 
 
