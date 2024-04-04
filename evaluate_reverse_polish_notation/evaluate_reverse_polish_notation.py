@@ -48,11 +48,31 @@ def evalRPN(tokens: list[str]) -> int:
     for el in tokens:
         if el.isnumeric() or (el[0] == "-" and el[1:].isnumeric()):
             evaluator.append(el)
-        elif el in ["+", "-", "*","/"]:
+        else:
             last:str = evaluator.pop(-1)
             second_last:str = evaluator.pop(-1)
             evaluator.append(int(eval(f"{second_last} {el} {last}")))
 
     return int(evaluator[0])
 
-print(evalRPN(["10","6","9","3","+","-11","*","/","*","17","+","5","+"]))
+
+def evalAgain(tokens: list[str]) -> int:
+    evaluator:list[int] = []
+
+    for el in tokens:
+        if el == "+":
+            evaluator.append(evaluator.pop()+evaluator.pop())
+        elif el == "*":
+            evaluator.append(evaluator.pop()*evaluator.pop())
+        elif el == "/":
+            a, b = evaluator.pop(), evaluator.pop()
+            evaluator.append(int(b/a))
+        elif el == "-":
+            a, b = evaluator.pop(), evaluator.pop()
+            evaluator.append(b-a)
+        else:
+            evaluator.append(int(el))
+
+    return evaluator[0]
+
+print(evalAgain(["10","6","9","3","+","-11","*","/","*","17","+","5","+"]))
