@@ -37,7 +37,6 @@ def search(nums: list[int], target: int) -> int:
         else:
             right = mid
             mid = right - max(1,(right-left)//2)
-
     return -1
 
 print(search(nums=[-1, 0, 3, 5, 9, 12], target=9))
@@ -45,3 +44,21 @@ print(search(nums=[-1,0,3,5,9,12], target=2))
 print(search(nums=[5], target=5))
 
 # TODO : Optimization required
+
+def search_optimized(nums: list[int], target: int) -> int:
+    left:int = 0
+    right:int = len(nums)-1
+
+    while left <= right:
+        mid:int = (right+left)//2
+        if nums[mid] > target:
+            right = mid -1
+        elif nums[mid] < target:
+            left = mid +1
+        else:
+            return mid
+    return -1
+
+print(search_optimized(nums=[-1, 0, 3, 5, 9, 12], target=9))
+print(search_optimized(nums=[-1,0,3,5,9,12], target=2))
+print(search_optimized(nums=[5], target=5))
