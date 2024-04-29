@@ -43,8 +43,7 @@ print(search(nums=[-1, 0, 3, 5, 9, 12], target=9))
 print(search(nums=[-1,0,3,5,9,12], target=2))
 print(search(nums=[5], target=5))
 
-# TODO : Optimization required
-
+# Optimized solution:
 def search_optimized(nums: list[int], target: int) -> int:
     left:int = 0
     right:int = len(nums)-1
