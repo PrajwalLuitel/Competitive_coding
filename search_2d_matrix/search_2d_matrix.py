@@ -51,10 +51,64 @@ def searchMatrix(matrix: list[list[int]], target: int) -> bool:
     return False
 
 
-print(searchMatrix(matrix = [[1,3,5,7],[10,11,16,20],[23,30,34,60]], target = 13))
-print(searchMatrix([[1,3,5,7],[10,11,16,20],[23,30,34,60]], 3))
+# print(searchMatrix(matrix = [[1,3,5,7],[10,11,16,20],[23,30,34,60]], target = 13))
+# print(searchMatrix([[1,3,5,7],[10,11,16,20],[23,30,34,60]], 3))
 
 
-# TODO : optimization required
 def optimizedSearchMatrix(matrix: list[list[int]], target: int) -> bool:
-    pass
+    
+    left_row:int = 0
+    right_row:int = len(matrix)
+    mid_row:int = (left_row+right_row)//2
+
+    left:int = 0
+    right:int = len(matrix[0])
+
+    while left_row <= right_row and left <= right:
+        mid:int = (left+right)//2
+        if matrix[mid_row][mid] > target:
+            if target < matrix[mid_row][0]:
+                if mid_row == 0 or (target > matrix[mid_row-1][-1]): return False
+                mid_row -= 1
+            else:
+                right = mid -1
+        elif matrix[mid_row][mid] < target:
+            if target > matrix[mid_row][-1]:
+                if mid_row == len(matrix)-1 or (target < matrix[mid_row+1][0]): return False
+                mid_row += 1
+            else:
+                left = mid + 1
+        else:
+            return True
+    
+    return False
+
+# print(optimizedSearchMatrix(matrix = [[1,3,5,7],[10,11,16,20],[23,30,34,60]], target = 13))
+# print(optimizedSearchMatrix([[1,3,5,7],[10,11,16,20],[23,30,34,60]], 3))
+print(optimizedSearchMatrix(matrix=[[1],[3]], target=2))
+
+
+def furtherOptimizedSearchMatrix(matrix:list[list[int]], target:int) -> bool:
+    rows:int = len(matrix)
+    cols:int = len(matrix[0])
+    left:int = 0
+    right:int = rows*cols -1
+
+    while left <= right:
+        mid:int = left + (right - left) // 2
+        row, col = divmod(mid, cols)
+        mid_val = matrix[row][col]
+
+        if mid_val == target:
+            return True
+        elif mid_val < target:
+            left = mid + 1
+        else:
+            right = mid - 1
+
+    return False
+
+
+print(optimizedSearchMatrix(matrix = [[1,3,5,7],[10,11,16,20],[23,30,34,60]], target = 13))
+print(optimizedSearchMatrix([[1,3,5,7],[10,11,16,20],[23,30,34,60]], 3))
+print(optimizedSearchMatrix(matrix=[[1],[3]], target=2))
