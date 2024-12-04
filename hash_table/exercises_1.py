@@ -72,3 +72,10 @@ if __name__=="__main__":
         if nyc_weather[f'january {i}'] > max:
             max = nyc_weather[f'january {i}']
     print(f"The maximum temperature between JAN 1 to JAN 10 in NYC is: {max} degree celcius.")
+
+    """nyc_weather.csv contains new york city weather for first few days in the month of January. Write a program that can answer following,
+What was the temperature on Jan 9?
+What was the temperature on Jan 4?"""
+
+    print(f"The temperature on Jan 9 is: {nyc_weather['january 9']}")
+    print(f"The temperature on Jan 4 is: {nyc_weather['january 4']}")
